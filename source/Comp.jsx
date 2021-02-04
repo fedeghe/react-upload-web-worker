@@ -16,7 +16,7 @@ export default () => {
         <input type="file" name="myfile" multiple onChange={e => {
             const files = [...e.target.files]
             const ids = files.map(file => uploader.start({
-                method:'PUT',
+                method:'POST',
                 file,
                 url: `${url}?fileName=${file.name}`,
                 onStart: data => setUploads(old => [...old, data]),
