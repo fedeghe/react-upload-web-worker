@@ -17,11 +17,16 @@ export default () => {
             const files = [...e.target.files]
             const ids = files.map(file => uploader.start({
                 method:'PUT',
+                // method:'POST',
                 file,
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Headers': '*',
-                    'Content-Type': 'multipart/form-data'
+                    /*
+                    // 'Content-Type': 'multipart/form-data'
+                    // 'Content-Type': 'application/octet-stream'
+                    // 'Content-Type': 'application/json'
+                    */
                 },
                 url: `${url}?fileName=${file.name}`,
                 onStart: data => setUploads(old => [...old, data]),

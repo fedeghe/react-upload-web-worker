@@ -4,11 +4,13 @@ const slowDown = require("express-slow-down");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 
 const app = express();
+var upload = multer();
 // const speedLimiter = slowDown({
 //     delayMs: 1000
 // });
@@ -17,13 +19,18 @@ const app = express();
 app.use(fileUpload({
     createParentPath: true
 }));
+
 // app.use(speedLimiter);
 
 
 app.use(cors());
-app.use(bodyParser.json());
+
+app.use(upload.array());
+// app.use(bodyParser.json());
+// app.use(bodyParser.raw({type: 'application/octet-stream'}));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+app.use(express.static('public'));
+// app.use(morgan('dev'));
 
 const port = process.env.PORT || 3000;
 
@@ -38,6 +45,8 @@ app.put('/upload', async (req, res) => {
 });
 
 app.post('/upload', async (req, res) => {
+    console.log(req)
+    console.log('BODY: \n\n', req.body)
     try {
         if(!req.files) {
             console.log('No file uploaded')
