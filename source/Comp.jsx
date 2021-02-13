@@ -16,8 +16,8 @@ export default () => {
         <input type="file" name="myfile" multiple onChange={e => {
             const files = [...e.target.files]
             const ids = files.map(file => uploader.start({
-                method:'PUT',
-                // method:'POST',
+                // method:'PUT',
+                method:'POST',
                 file,
                 headers: {
                     'Access-Control-Allow-Origin': '*',
